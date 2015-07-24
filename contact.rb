@@ -80,16 +80,3 @@ class Contact
     addresses.each {|address| puts address}
   end
 end
-
-alex = Contact.new
-alex.first_name = "Alex"
-alex.last_name = "Handler"
-alex.add_phone_number("home", "203-849-3329")
-alex.add_phone_number("home", "203-234-3329")
-alex.add_address("home","22 Assisi Way", "Apt c","Norwalk","ct","06851")
-alex.print_addresses
-alex.print_phone_numbers
-jill = Contact.new
-jill.first_name = "Jill"
-jill.last_name = "Daley"
-jill.middle_name = "Erin"
