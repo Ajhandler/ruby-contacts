@@ -1,11 +1,14 @@
 require("./phone_number.rb")
+require("./address.rb")
 
 class Contact
   attr_accessor :first_name, :middle_name, :last_name
   attr_reader :phone_numbers
+  attr_reader :addresses
 
   def initialize
     @phone_numbers = []
+    @addresses = []
   end
 
   def add_phone_number(kind,number)
@@ -13,6 +16,17 @@ class Contact
     phone_number.kind = kind
     phone_number.number = number
     phone_numbers.push(phone_number)
+  end
+
+  def add_address(kind,street_1,street_2,city,state,postal_code)
+    address = Address.new
+    address.kind = kind
+    address.street_1 = street_1
+    address.street_2 = street_2
+    address.city = city
+    address.state = state
+    address.postal_code = postal_code
+    addresses.push(address)
   end
 
   def last_first
@@ -60,6 +74,11 @@ class Contact
     puts "Phone Numbers"
     phone_numbers.each {|phone_number| puts phone_number}
   end
+
+  def print_addresses
+    puts "Addresses"
+    addresses.each {|address| puts address}
+  end
 end
 
 alex = Contact.new
@@ -67,10 +86,10 @@ alex.first_name = "Alex"
 alex.last_name = "Handler"
 alex.add_phone_number("home", "203-849-3329")
 alex.add_phone_number("home", "203-234-3329")
-puts alex.to_s
+alex.add_address("home","22 Assisi Way", "Apt c","Norwalk","ct","06851")
+alex.print_addresses
 alex.print_phone_numbers
 jill = Contact.new
 jill.first_name = "Jill"
 jill.last_name = "Daley"
 jill.middle_name = "Erin"
-puts jill.to_s('full_name')
