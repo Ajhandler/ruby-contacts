@@ -15,15 +15,30 @@ class AddressBook
         results.push(contact)
       end
     end
-    puts "name search result (#{search})"
-    results.each do |contact|
-      puts contact.to_s('full_name')
-      puts contact.print_phone_numbers
-      puts contact.print_addresses
-      puts "\n"
+  print_results("name search results(#{search})",results)
     end
   end
-
+  def find_by_phone_number(number)
+    results = []
+    search = number.gsub("-", "")
+    contacts.each do |contact|
+      contact.phone_numbers.each do |phone_number|
+        if phone_number.number.gsub("-", "").include?(search)
+          results.push(contact) unless results.include?(contact)
+        end
+      end
+    end
+    print_results("Phone search results (#{search})", results)
+  end
+  def print_results(search, results)
+  puts search
+  results.each do |contact|
+    puts contact.to_s('full_name')
+    contact.print_phone_numbers
+    contact.print_addresses
+    puts "\n"
+  end
+end
   def print_contact_list
     puts "Contact List"
     contacts.each do |contact|
@@ -31,6 +46,7 @@ class AddressBook
     end
   end
 end
+
 
 address_book = AddressBook.new
 david = Contact.new
@@ -40,5 +56,4 @@ david.last_name = "Peters"
 david.add_phone_number("home", "203-849-3329")
 david.add_address("home","22 Assisi Way", "","Norwalk","CT", "06851")
 address_book.contacts.push(david)
-address_book.find_by_name("s")
-puts david.inspect
+address_book.find_by_phone_number("203-849-3329")
